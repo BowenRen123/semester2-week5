@@ -9,34 +9,62 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
+#include <math.h>
 
 int main(void){
 	long decimal=0;
 	char hex[9];
 	
 	printf("Enter a hexadecimal:");
-	fgets(hex,9,stdin);
-	hex[strlen(hex) - 1] = '\0';
+	scanf("%s",hex);
  
 	bool valid = true;
-	for (int i = 0;i < 9;i++)
+	for (int i = 0;hex[i] != '\0';i++)
 	{
-		char hex_dig = hex[i]; 
-		if (hex_dig == ' ') {
-			printf("peeepeeee \n");
-			continue;
-		}
+		char hex_dig = hex[i];
 
-		if (!((hex_dig >= '0' && hex_dig <= '9') || (hex_dig >= 'A' && hex_dig <= 'F')))
+		if (!((hex_dig >= '0' && hex_dig <= '9') || 
+		(hex_dig >= 'A' && hex_dig <= 'F') || 
+		(hex_dig >= 'a' && hex_dig <= 'f')))
 		{
 			valid = false;
 		}
 	}
 
+	
 	if (!valid) 
 	{
 		printf("Error: Invalid Hexadecimal\n");
 		return 1;
+	}
+
+ 
+	int i = 0;
+	int length = strlen(hex);
+	int dig;
+
+	while (i < strlen(hex))
+	{
+
+		char curr = hex[i];
+
+		if (curr >= 'A' && curr <= 'F')
+		{
+			dig = 10 + (int) (curr - 'A');		
+		}
+
+		else if (curr >= 'a' && curr <= 'f')
+		{
+			dig = 10 + (int) (curr - 'a');		
+		}
+
+		else if (curr >= '0' && curr <= '9')
+		{
+			dig = 0 + (int) (curr - '0');		
+		}
+
+		decimal += dig * pow(16,length - i - 1);
+		i++;	
 	}
 
 	// if input contains invalid hex digit
