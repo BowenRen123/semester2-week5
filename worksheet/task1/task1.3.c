@@ -17,6 +17,18 @@ int main(void) {
  
 	srand(time(NULL)); // Seed the random generator
 	printf("Generate two numbers between 1-6 with total cannot be 7\n");
-    	
+
+	int sum;
+	int num1,num2;
+
+	do
+	{
+		num1 = rand() % 6 + 1;
+		num2 = rand() % 6 + 1;
+		sum = num1 + num2;
+	} while (sum == 7);
+	
+    printf("%d %d\n",num1,num2);	
+
 	return 0;
 }
