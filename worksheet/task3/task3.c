@@ -17,7 +17,78 @@
 #include <stdio.h>
 #include <string.h>
  
- int main(void){
-	 
-	 return 0;
+int has_upper_case(char* text,int text_len)
+{
+	for (int i = 0;i < text_len;i++)
+	{
+		if (text[i] >= 'A' && text[i] <= 'Z')
+		{
+			return 0;
+		}
+	}
+
+	return 1;
+}
+
+int has_one_number(char* text,int text_len)
+{
+	for (int i = 0;i < text_len;i++)
+	{
+		if (text[i] >= '0' && text[i] <= '9')
+		{
+			return 0;
+		}
+	}
+
+	return 1;
+}
+
+int has_special_character(char* text,int text_len)
+{
+	for (int i = 0;i < text_len;i++)
+	{
+		if (text[i] == '!' || text[i] == '@' || text[i] == '#'
+		|| text[i] == '$' || text[i] == '%' || text[i] == '^' || text[i] == '&'
+	|| text[i] == '*')
+		{
+			return 0;
+		}
+	}
+
+	return 1;
+}
+ 
+int main(void){
+	char password[128];
+	char prompt;
+
+	while (1) {
+	
+		while (1) {
+		
+			printf("Enter a password: ");
+			scanf("%s",password);
+
+			int len = strlen(password);
+
+			if (len >= 8 
+			&& has_one_number(password,len) == 0
+			&& has_special_character(password,len) == 0 
+			&& has_upper_case(password,len) == 0) 
+			{
+				break;
+			}
+
+		}
+
+		printf("Do you want to validate another password? (y/n)");
+		scanf(" %c",&prompt);
+
+		if (prompt == 'n') {
+			break;
+		} 
+
+	}
+	
+	return 0;
  }
